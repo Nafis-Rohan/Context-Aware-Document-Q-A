@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./chroma_db:/app/chroma_db
+    env_file:
+      - .env
+    environment:
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      CHROMA_DB_PATH: /app/chroma_db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
